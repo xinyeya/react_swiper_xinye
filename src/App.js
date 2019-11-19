@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import './assets/css/App.css';
+import Swiper from "./componets/swiper"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      data: [
+        {image: require("./assets/images/banner1.jpg"), url: "https://www.52pojie.cn/portal.php"},
+        {image: require("./assets/images/banner2.jpg"), url: "https://www.xd0.com/"},
+        {image: require("./assets/images/banner3.jpg"), url: "http://pic.netbian.com/"}
+      ]
+    }
+  }
+
+  render(){
+    return (
+      <div className="App">
+        <Swiper data={this.state.data}></Swiper>
+      </div>
+    )
+  }
 }
 
-export default App;
+
