@@ -10,14 +10,41 @@ export default class Swiper extends Component{
         }
         this.aData = []
         this.isInit=true
+        this.index=null
     }
 
     componentDidMount(){
-        setTimeout(()=>{
-            console.log(this.props.data)
-        })
+        this.autoPlay()
     }
 
+    componentWillUnmount(){
+        clearInterval(this.timer)
+    }
+
+    // 自动轮播
+    autoPlay(){
+        this.timer = setInterval(()=>{
+            if(this.aData && this.aData.length>0){
+                this.isInit = false
+                for(let i=0;i<this.aData.length;i++){
+                    if(this.aData[i].active){
+                        this.aData[i].active = false
+                        break
+                    }
+                }
+            }
+
+            if(this.index>=this.aData.length-1){
+                this.index = 0
+            }else{
+                this.index++
+            }
+            this.aData[this.index].active = true
+            this.setState({data: this.aData})
+        }, 3000)
+    }
+
+    // 改变图片
     changeImage(index){
         this.isInit=false
         if(this.aData.length>0){
@@ -34,9 +61,13 @@ export default class Swiper extends Component{
         })
     }
 
+    stop(){
+        clearInterval(this.timer)
+    }
+
     render(){
         this.aData = this.props.data;
-        if(this.aData.length>0 && this.isInit){
+        if(this.aData && this.aData.length>0 && this.isInit){
             for(let i=0;i<this.aData.length;i++){
                 if (i===0) {
                     this.aData[i].active = true
@@ -47,9 +78,9 @@ export default class Swiper extends Component{
         }
 
         return(
-            <div className="my-swiper-main">
+            <div className="my-swiper-main" onMouseOver={this.stop.bind(this)} onMouseOut={this.autoPlay.bind(this)}>
                 {
-                    this.aData.length>0 && this.aData.map((item, index)=>{
+                    (this.aData && this.aData.length>0) && this.aData.map((item, index)=>{
                         return (
                             <div className={item.active ? "my-slide show" : "my-slide"} key={index}>
                                 <a href={item.url} target="_blank" rel="noopener noreferrer"><img src={item.image} alt="" /></a>
@@ -59,7 +90,7 @@ export default class Swiper extends Component{
                 }
                 <div className="pagination">
                     {
-                        this.aData.length>0 && this.aData.map((item,index) => {
+                        (this.aData && this.aData.length>0) && this.aData.map((item,index) => {
                             return (
                                 <div className={item.active?"dot active":"dot"} key={index} onClick={this.changeImage.bind(this,index)}></div>
                             )
