@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import PropTypes from "prop-types"
 import "./index.css"
 
 export default class Swiper extends Component{
@@ -68,4 +69,8 @@ export default class Swiper extends Component{
             </div>
         )
     }
+}
+
+Swiper.propTypes = {
+    data: PropTypes.array.isRequired
 }
