@@ -12,8 +12,8 @@ export default class Swiper extends Component{
     }
 
     componentDidMount(){
-        this.setState({
-            data: this.props.data
+        setTimeout(()=>{
+            console.log(this.props.data)
         })
     }
 
@@ -34,8 +34,8 @@ export default class Swiper extends Component{
     }
 
     render(){
-        this.aData = this.state.data;
-        if(this.aData.length>0&&this.isInit){
+        this.aData = this.props.data;
+        if(this.aData.length>0 && this.isInit){
             for(let i=0;i<this.aData.length;i++){
                 if (i===0) {
                     this.aData[i].active = true
@@ -48,7 +48,7 @@ export default class Swiper extends Component{
         return(
             <div className="my-swiper-main">
                 {
-                    this.props.data.length>0&&this.props.data.map((item, index)=>{
+                    this.aData.length>0 && this.aData.map((item, index)=>{
                         return (
                             <div className={item.active ? "my-slide show" : "my-slide"} key={index}>
                                 <a href={item.url} target="_blank" rel="noopener noreferrer"><img src={item.image} alt="" /></a>

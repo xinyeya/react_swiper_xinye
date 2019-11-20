@@ -6,12 +6,21 @@ export default class App extends Component {
   constructor(){
     super();
     this.state = {
-      data: [
+      data: []
+    }
+  }
+
+  componentDidMount(){
+    setTimeout(()=>{
+      let data = [
         {image: require("./assets/images/banner1.jpg"), url: "https://www.52pojie.cn/portal.php"},
         {image: require("./assets/images/banner2.jpg"), url: "https://www.xd0.com/"},
         {image: require("./assets/images/banner3.jpg"), url: "http://pic.netbian.com/"}
-      ]
-    }
+      ] 
+      this.setState({
+        data: data
+      })
+    }, 400)
   }
 
   render(){
